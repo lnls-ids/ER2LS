@@ -743,13 +743,23 @@ QGroupBox::title {
       </rect>
      </property>
     </widget>
-    <widget class="QWidget" name="plotWidget" native="true">
+    <widget class="QWidget" name="FieldplotWidget" native="true">
      <property name="geometry">
       <rect>
        <x>300</x>
        <y>100</y>
        <width>351</width>
        <height>221</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QWidget" name="SpectrumplotWidget" native="true">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>20</y>
+       <width>521</width>
+       <height>301</height>
       </rect>
      </property>
     </widget>

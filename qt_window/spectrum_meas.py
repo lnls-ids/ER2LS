@@ -14,6 +14,7 @@ from apu_widget import APUWidget
 import numpy as np
 from PyQt5.QtWidgets import QVBoxLayout
 from mpl_canvas import MplCanvas
+from spectrum_canvas import SpectrumCanvas
 
 
 class MainWindow(QMainWindow):
@@ -33,7 +34,13 @@ class MainWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.canvas = MplCanvas()
-        layout = QVBoxLayout(self.ui.plotWidget)
+        self.spectrum_canvas = SpectrumCanvas()
+
+        layout = QVBoxLayout(self.ui.SpectrumplotWidget)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.spectrum_canvas)
+
+        layout = QVBoxLayout(self.ui.FieldplotWidget)
         layout.setContentsMargins(0, 0, 0, 0)
         layout.addWidget(self.canvas)
 
@@ -135,6 +142,7 @@ class MainWindow(QMainWindow):
         else:
             self.ui.Und_Phase_label.setText("Harmonic not possible!")
         self.canvas.update_point(phase)
+        self.spectrum_canvas.update_spectrum(phase)
 
     def move_und(self):
         phase_str = self.ui.Und_Phase_label.text()

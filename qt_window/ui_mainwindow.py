@@ -224,7 +224,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.addWidget(self.DVF_status_led)
         self.verticalLayout_2.addLayout(self.horizontalLayout_10)
         self.Und_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Und_box.setGeometry(QtCore.QRect(10, 0, 671, 331))
+        self.Und_box.setGeometry(QtCore.QRect(10, 0, 1201, 331))
         self.Und_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -390,9 +390,12 @@ class Ui_MainWindow(object):
         self.graphicsViewAPU = QtWidgets.QGraphicsView(self.Und_box)
         self.graphicsViewAPU.setGeometry(QtCore.QRect(300, 20, 351, 81))
         self.graphicsViewAPU.setObjectName("graphicsViewAPU")
-        self.plotWidget = QtWidgets.QWidget(self.Und_box)
-        self.plotWidget.setGeometry(QtCore.QRect(300, 100, 351, 221))
-        self.plotWidget.setObjectName("plotWidget")
+        self.FieldplotWidget = QtWidgets.QWidget(self.Und_box)
+        self.FieldplotWidget.setGeometry(QtCore.QRect(300, 100, 351, 221))
+        self.FieldplotWidget.setObjectName("FieldplotWidget")
+        self.SpectrumplotWidget = QtWidgets.QWidget(self.Und_box)
+        self.SpectrumplotWidget.setGeometry(QtCore.QRect(660, 20, 521, 301))
+        self.SpectrumplotWidget.setObjectName("SpectrumplotWidget")
         self.Scan_box = QtWidgets.QGroupBox(self.centralwidget)
         self.Scan_box.setGeometry(QtCore.QRect(380, 330, 301, 291))
         self.Scan_box.setStyleSheet("QGroupBox {\n"
