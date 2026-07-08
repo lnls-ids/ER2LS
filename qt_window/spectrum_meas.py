@@ -1,0 +1,248 @@
+#!/usr/bin/env python-sirius
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
+import apu
+from hddcm import DCM
+import time
+from slit import WBS1, FOES
+from dvf import DVF
+from scan import Scan
+from ui_mainwindow import Ui_MainWindow
+import os
+import epics
+from apu_widget import APUWidget
+import numpy as np
+from PyQt5.QtWidgets import QVBoxLayout
+from mpl_canvas import MplCanvas
+
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+
+        super().__init__()
+        os.environ['EPICS_CA_ADDR_LIST'] = '10.33.34.32 10.33.34.29 10.39.50.76 10.0.38.143'
+
+        self.und = None
+        self.dcm = None
+        self.wbs = None
+        self.foe = None
+        self.dvf = None
+
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+
+        self.canvas = MplCanvas()
+        layout = QVBoxLayout(self.ui.plotWidget)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.addWidget(self.canvas)
+
+        self.wbs = WBS1()
+        self.foe = FOES()
+        self.dvf = DVF()
+        self.apu_widget = APUWidget(self.ui.graphicsViewAPU)
+
+        self.connect_undulator()
+        self.connect_dcm()
+
+        self.initial_verifications()
+
+        # Undulator functions
+        self.ui.Und_Connect_Button.clicked.connect(self.connect_undulator)
+        self.ui.Und_Phase_Button.clicked.connect(self.calc_phase)
+        self.ui.Und_Move_Button.clicked.connect(self.move_und)
+
+        # DCM functions
+        self.ui.DCM_Connect_Button.clicked.connect(self.connect_dcm)
+        self.ui.DCM_Move_Button.clicked.connect(self.move_dcm)
+
+        # Slits functions
+        self.ui.WBS_Close_Button.clicked.connect(self.close_wbs)
+        self.ui.WBS_Ref_Button.clicked.connect(self.set_ref_wbs)
+        self.ui.WBS_Open_Button.clicked.connect(self.open_wbs)
+        self.ui.WBS_Motor_Button.clicked.connect(self.set_wbs_motor)
+
+        self.ui.FOE_Close_Button.clicked.connect(self.close_foe)
+        self.ui.FOE_Ref_Button.clicked.connect(self.set_ref_foe)
+        self.ui.FOE_Open_Button.clicked.connect(self.open_foe)
+        self.ui.FOE_Motor_Button.clicked.connect(self.set_foe_motor)
+
+        # DVF functions
+        self.ui.DVF_Acq_Button.clicked.connect(self.start_stop_acquire)
+        self.ui.ROI_Define_Button.clicked.connect(self.set_roi)
+        self.ui.ROI_Disable_Button.clicked.connect(self.reset_roi)
+
+        # Scan functions
+        self.ui.FileButton.clicked.connect(self.select_input_file)
+        self.ui.Scan_Button.clicked.connect(self.start_scan)
+
+    def initial_verifications(self):
+        if self.wbs.verify_motors_enable():
+            self.set_led(self.ui.WBS_status_led, 'green')
+            self.ui.WBS_Motor_Button.setText('Disable')
+        else:
+            self.set_led(self.ui.WBS_status_led, 'red')
+            self.ui.WBS_Motor_Button.setText('Enable')
+
+        if self.foe.verify_motors_enable():
+            self.set_led(self.ui.FOE_status_led, 'green')
+            self.ui.FOE_Motor_Button.setText('Disable')
+        else:
+            self.set_led(self.ui.FOE_status_led, 'red')
+            self.ui.FOE_Motor_Button.setText('Enable')
+
+        value = epics.caget(self.dvf.dvf_acquire)
+        if value:
+            self.set_led(self.ui.DVF_status_led, 'green')
+            self.ui.DVF_Acq_Button.setText("Stop Acq.")
+        else:
+            self.set_led(self.ui.DVF_status_led, 'red')
+            self.ui.DVF_Acq_Button.setText("Start Acq.")
+
+    # LED functions
+    def set_led(self, led, color):
+        colors = {
+            "green": "rgb(0,220,0)",
+            "red": "rgb(220,0,0)",
+            "yellow": "rgb(255,200,0)",
+            "gray": "rgb(120,120,120)"
+        }
+
+        led.setStyleSheet(f"""
+        QLabel {{
+            background-color: {colors[color]};
+            border-radius: 8px;
+            border: 1px solid black;
+        }}
+        """)
+
+    # Undulator related functions
+    def connect_undulator(self):
+        self.und = apu.initialize_apu(beamline='SAPUCAIA')
+        time.sleep(1)
+        if self.und.connected:
+            self.set_led(self.ui.Und_status_led, 'green')
+        else:
+            self.set_led(self.ui.Und_status_led, 'red')
+
+    def calc_phase(self):
+        energy = float(self.ui.Energy_edit.text())
+        harmonic = float(self.ui.Harmonic_edit.text())
+        phase = apu.get_phase_from_energy(energy, harmonic)
+        if not np.isnan(phase):
+            self.ui.Und_Phase_label.setText(f"Phase: {phase:.4f} mm")
+            self.apu_widget.set_phase(phase)
+        else:
+            self.ui.Und_Phase_label.setText("Harmonic not possible!")
+        self.canvas.update_point(phase)
+
+    def move_und(self):
+        phase_str = self.ui.Und_Phase_label.text()
+        phase = float(phase_str.split(": ")[1].strip().split()[0])
+        self.und.cmd_move(kparam=phase)
+
+    # DCM related functions
+    def connect_dcm(self):
+        self.dcm = DCM(timeout=3)
+        time.sleep(1)
+        if self.dcm.energy_mon is not None:
+            self.set_led(self.ui.DCM_status_led, 'green')
+        else:
+            self.set_led(self.ui.DCM_status_led, 'red')
+
+    def move_dcm(self):
+        energy = float(self.ui.Energy_edit.text())
+        self.dcm.cmd_move_robust(energy, 5)
+
+    # Slits related functions
+    def close_wbs(self):
+        self.wbs.set_slits_closed()
+
+    def set_ref_wbs(self):
+        self.wbs.set_slits_ref()
+
+    def open_wbs(self):
+        self.wbs.set_slits_open()
+
+    def set_wbs_motor(self):
+        self.wbs.set_motors()
+        if self.wbs.verify_motors_enable():
+            self.set_led(self.ui.WBS_status_led, 'green')
+            self.ui.WBS_Motor_Button.setText('Disable')
+        else:
+            self.set_led(self.ui.WBS_status_led, 'red')
+            self.ui.WBS_Motor_Button.setText('Enable')
+
+    def close_foe(self):
+        self.foe.set_slits_closed()
+
+    def set_ref_foe(self):
+        self.foe.set_slits_ref()
+
+    def open_foe(self):
+        self.foe.set_slits_open()
+
+    def set_foe_motor(self):
+        self.foe.set_motors()
+        if self.foe.verify_motors_enable():
+            self.set_led(self.ui.FOE_status_led, 'green')
+            self.ui.FOE_Motor_Button.setText('Disable')
+        else:
+            self.set_led(self.ui.FOE_status_led, 'red')
+            self.ui.FOE_Motor_Button.setText('Enable')
+
+    # DVF related functions
+    def start_stop_acquire(self):
+        self.dvf.start_stop_acquire()
+        value = epics.caget(self.dvf.dvf_acquire)
+        if value:
+            self.set_led(self.ui.DVF_status_led, 'green')
+            self.ui.DVF_Acq_Button.setText("Stop Acq.")
+        else:
+            self.set_led(self.ui.DVF_status_led, 'red')
+            self.ui.DVF_Acq_Button.setText("Start Acq.")
+
+    def set_roi(self):
+        roi_shape_x = int(self.ui.ROI_shape_x_edit.text())
+        roi_shape_y = int(self.ui.ROI_shape_y_edit.text())
+        roi_start_x = int(self.ui.ROI_start_x_edit.text())
+        roi_start_y = int(self.ui.ROI_start_y_edit.text())
+        roi_shape = (roi_shape_y, roi_shape_x)
+        roi_start = (roi_start_y, roi_start_x)
+        self.dvf.define_ROI(roi_shape, roi_start)
+
+    def reset_roi(self):
+        self.dvf.disable_ROI()
+
+    # Scan related functions
+    def select_input_file(self):
+        filename, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select input file",
+            "",
+            "Text files (*.txt)"
+        )
+
+        if filename:
+            self.ui.InputFile_lineEdit.setText(filename)
+            self.scan = Scan(fname=filename, dcm=self.dcm, dvf=self.dvf)
+            self.scan.load_scan_points()
+            nr_pts = len(self.scan.scanPoints[:, 0])
+            self.ui.Scan_nrpoints.setText("Nr. points: {:.0f}".format(nr_pts))
+
+    def start_scan(self):
+        self.scan.do_scan(
+            progress_callback=self.update_progress
+        )
+
+    def update_progress(self, value):
+        self.ui.progressBar.setValue(value)
+        QApplication.processEvents()
+
+
+app = QApplication([])
+
+window = MainWindow()
+window.show()
+
+app.exec()
