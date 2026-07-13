@@ -1124,6 +1124,42 @@ QGroupBox::title {
      </layout>
     </widget>
    </widget>
+   <widget class="QGroupBox" name="Scan_box_2">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>400</y>
+      <width>551</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox {
+
+    font-weight:bold;
+
+    border:1px solid gray;
+
+    border-radius:6px;
+
+    margin-top:12px;
+
+}
+
+QGroupBox::title {
+
+    subcontrol-origin: margin;
+
+    left:10px;
+
+    padding:0 5px;
+
+}</string>
+    </property>
+    <property name="title">
+     <string>Plot</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

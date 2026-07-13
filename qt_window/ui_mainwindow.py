@@ -572,6 +572,30 @@ class Ui_MainWindow(object):
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
         self.verticalLayout_5.addWidget(self.progressBar)
+        self.Scan_box_2 = QtWidgets.QGroupBox(self.centralwidget)
+        self.Scan_box_2.setGeometry(QtCore.QRect(690, 400, 551, 291))
+        self.Scan_box_2.setStyleSheet("QGroupBox {\n"
+"\n"
+"    font-weight:bold;\n"
+"\n"
+"    border:1px solid gray;\n"
+"\n"
+"    border-radius:6px;\n"
+"\n"
+"    margin-top:12px;\n"
+"\n"
+"}\n"
+"\n"
+"QGroupBox::title {\n"
+"\n"
+"    subcontrol-origin: margin;\n"
+"\n"
+"    left:10px;\n"
+"\n"
+"    padding:0 5px;\n"
+"\n"
+"}")
+        self.Scan_box_2.setObjectName("Scan_box_2")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 1252, 20))
@@ -635,3 +659,4 @@ class Ui_MainWindow(object):
         self.Scan_min_energy.setText(_translate("MainWindow", "Min. Energy:"))
         self.Scan_max_energy.setText(_translate("MainWindow", "Max. Energy:"))
         self.Scan_Button.setText(_translate("MainWindow", "Start Scan"))
+        self.Scan_box_2.setTitle(_translate("MainWindow", "Plot"))
