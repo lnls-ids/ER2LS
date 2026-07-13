@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>1236</width>
-    <height>665</height>
+    <height>735</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Medida espectral</string>
+   <string>Spectrum measurement</string>
   </property>
   <property name="styleSheet">
    <string notr="true">QMainWindow {
@@ -24,7 +24,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>330</y>
+      <y>400</y>
       <width>361</width>
       <height>141</height>
      </rect>
@@ -246,7 +246,7 @@ QGroupBox::title {
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>480</y>
+      <y>550</y>
       <width>361</width>
       <height>141</height>
      </rect>
@@ -446,7 +446,7 @@ QGroupBox::title {
       <x>10</x>
       <y>0</y>
       <width>1201</width>
-      <height>331</height>
+      <height>401</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -481,7 +481,7 @@ QGroupBox::title {
        <x>10</x>
        <y>110</y>
        <width>141</width>
-       <height>201</height>
+       <height>281</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -577,7 +577,7 @@ QGroupBox::title {
        <x>160</x>
        <y>110</y>
        <width>121</width>
-       <height>141</height>
+       <height>191</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -737,8 +737,8 @@ QGroupBox::title {
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>20</y>
-       <width>351</width>
+       <y>50</y>
+       <width>261</width>
        <height>81</height>
       </rect>
      </property>
@@ -747,7 +747,7 @@ QGroupBox::title {
      <property name="geometry">
       <rect>
        <x>300</x>
-       <y>100</y>
+       <y>160</y>
        <width>351</width>
        <height>221</height>
       </rect>
@@ -757,10 +757,111 @@ QGroupBox::title {
      <property name="geometry">
       <rect>
        <x>660</x>
-       <y>20</y>
+       <y>30</y>
        <width>521</width>
        <height>301</height>
       </rect>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ERangeLabelMin">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>350</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>Min:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ERangeLabelMax">
+     <property name="geometry">
+      <rect>
+       <x>870</x>
+       <y>350</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>Max:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="ERange">
+     <property name="geometry">
+      <rect>
+       <x>710</x>
+       <y>320</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>Energy range</string>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="SpectrumSpinXMin">
+     <property name="geometry">
+      <rect>
+       <x>740</x>
+       <y>350</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <double>20.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+    </widget>
+    <widget class="QDoubleSpinBox" name="SpectrumSpinXMax">
+     <property name="geometry">
+      <rect>
+       <x>910</x>
+       <y>350</y>
+       <width>71</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="decimals">
+      <number>1</number>
+     </property>
+     <property name="minimum">
+      <double>1.000000000000000</double>
+     </property>
+     <property name="maximum">
+      <double>20.000000000000000</double>
+     </property>
+     <property name="singleStep">
+      <double>0.100000000000000</double>
+     </property>
+     <property name="value">
+      <double>20.000000000000000</double>
      </property>
     </widget>
    </widget>
@@ -768,7 +869,7 @@ QGroupBox::title {
     <property name="geometry">
      <rect>
       <x>380</x>
-      <y>330</y>
+      <y>400</y>
       <width>301</width>
       <height>291</height>
      </rect>

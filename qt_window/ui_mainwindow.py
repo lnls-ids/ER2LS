@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1236, 665)
+        MainWindow.resize(1236, 735)
         MainWindow.setStyleSheet("QMainWindow {\n"
 "    background-color: rgb(187, 187, 221);\n"
 "}\n"
@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.Slits_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Slits_box.setGeometry(QtCore.QRect(10, 330, 361, 141))
+        self.Slits_box.setGeometry(QtCore.QRect(10, 400, 361, 141))
         self.Slits_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -120,7 +120,7 @@ class Ui_MainWindow(object):
         self.FOE_status_led.setText("")
         self.FOE_status_led.setObjectName("FOE_status_led")
         self.DVF_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.DVF_box.setGeometry(QtCore.QRect(10, 480, 361, 141))
+        self.DVF_box.setGeometry(QtCore.QRect(10, 550, 361, 141))
         self.DVF_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -224,7 +224,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.addWidget(self.DVF_status_led)
         self.verticalLayout_2.addLayout(self.horizontalLayout_10)
         self.Und_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Und_box.setGeometry(QtCore.QRect(10, 0, 1201, 331))
+        self.Und_box.setGeometry(QtCore.QRect(10, 0, 1201, 401))
         self.Und_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -248,7 +248,7 @@ class Ui_MainWindow(object):
 "}")
         self.Und_box.setObjectName("Und_box")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.Und_box)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 110, 141, 201))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 110, 141, 281))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -300,7 +300,7 @@ class Ui_MainWindow(object):
         self.Und_Move_Button.setObjectName("Und_Move_Button")
         self.verticalLayout.addWidget(self.Und_Move_Button)
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(self.Und_box)
-        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(160, 110, 121, 141))
+        self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(160, 110, 121, 191))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_3)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -388,16 +388,51 @@ class Ui_MainWindow(object):
         self.Und_Phase_label.setObjectName("Und_Phase_label")
         self.verticalLayout_4.addWidget(self.Und_Phase_label)
         self.graphicsViewAPU = QtWidgets.QGraphicsView(self.Und_box)
-        self.graphicsViewAPU.setGeometry(QtCore.QRect(300, 20, 351, 81))
+        self.graphicsViewAPU.setGeometry(QtCore.QRect(300, 50, 261, 81))
         self.graphicsViewAPU.setObjectName("graphicsViewAPU")
         self.FieldplotWidget = QtWidgets.QWidget(self.Und_box)
-        self.FieldplotWidget.setGeometry(QtCore.QRect(300, 100, 351, 221))
+        self.FieldplotWidget.setGeometry(QtCore.QRect(300, 160, 351, 221))
         self.FieldplotWidget.setObjectName("FieldplotWidget")
         self.SpectrumplotWidget = QtWidgets.QWidget(self.Und_box)
-        self.SpectrumplotWidget.setGeometry(QtCore.QRect(660, 20, 521, 301))
+        self.SpectrumplotWidget.setGeometry(QtCore.QRect(660, 30, 521, 301))
         self.SpectrumplotWidget.setObjectName("SpectrumplotWidget")
+        self.ERangeLabelMin = QtWidgets.QLabel(self.Und_box)
+        self.ERangeLabelMin.setGeometry(QtCore.QRect(710, 350, 81, 31))
+        self.ERangeLabelMin.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.ERangeLabelMin.setObjectName("ERangeLabelMin")
+        self.ERangeLabelMax = QtWidgets.QLabel(self.Und_box)
+        self.ERangeLabelMax.setGeometry(QtCore.QRect(870, 350, 81, 31))
+        self.ERangeLabelMax.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.ERangeLabelMax.setObjectName("ERangeLabelMax")
+        self.ERange = QtWidgets.QLabel(self.Und_box)
+        self.ERange.setGeometry(QtCore.QRect(710, 320, 101, 31))
+        self.ERange.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.ERange.setObjectName("ERange")
+        self.SpectrumSpinXMin = QtWidgets.QDoubleSpinBox(self.Und_box)
+        self.SpectrumSpinXMin.setGeometry(QtCore.QRect(740, 350, 71, 31))
+        self.SpectrumSpinXMin.setDecimals(1)
+        self.SpectrumSpinXMin.setMaximum(20.0)
+        self.SpectrumSpinXMin.setSingleStep(0.1)
+        self.SpectrumSpinXMin.setObjectName("SpectrumSpinXMin")
+        self.SpectrumSpinXMax = QtWidgets.QDoubleSpinBox(self.Und_box)
+        self.SpectrumSpinXMax.setGeometry(QtCore.QRect(910, 350, 71, 31))
+        self.SpectrumSpinXMax.setDecimals(1)
+        self.SpectrumSpinXMax.setMinimum(1.0)
+        self.SpectrumSpinXMax.setMaximum(20.0)
+        self.SpectrumSpinXMax.setSingleStep(0.1)
+        self.SpectrumSpinXMax.setProperty("value", 20.0)
+        self.SpectrumSpinXMax.setObjectName("SpectrumSpinXMax")
         self.Scan_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Scan_box.setGeometry(QtCore.QRect(380, 330, 301, 291))
+        self.Scan_box.setGeometry(QtCore.QRect(380, 400, 301, 291))
         self.Scan_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -480,7 +515,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Medida espectral"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "Spectrum measurement"))
         self.Slits_box.setTitle(_translate("MainWindow", "Slits"))
         self.WBS_label.setText(_translate("MainWindow", "White beam slit (WBS)"))
         self.FOE_label.setText(_translate("MainWindow", "Front-end slits (FOE)"))
@@ -516,6 +551,9 @@ class Ui_MainWindow(object):
         self.harmonic_label.setText(_translate("MainWindow", "Harmonic:"))
         self.Harmonic_edit.setText(_translate("MainWindow", "0"))
         self.Und_Phase_label.setText(_translate("MainWindow", "Phase:"))
+        self.ERangeLabelMin.setText(_translate("MainWindow", "Min:"))
+        self.ERangeLabelMax.setText(_translate("MainWindow", "Max:"))
+        self.ERange.setText(_translate("MainWindow", "Energy range"))
         self.Scan_box.setTitle(_translate("MainWindow", "Scan"))
         self.Inputfile_label.setText(_translate("MainWindow", "Input File:"))
         self.FileButton.setText(_translate("MainWindow", "Browse"))

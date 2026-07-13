@@ -83,6 +83,10 @@ class MainWindow(QMainWindow):
         self.ui.FileButton.clicked.connect(self.select_input_file)
         self.ui.Scan_Button.clicked.connect(self.start_scan)
 
+        # Plot functions
+        self.ui.SpectrumSpinXMax.valueChanged.connect(self.update_axes)
+        self.ui.SpectrumSpinXMin.valueChanged.connect(self.update_axes)
+
     def initial_verifications(self):
         if self.wbs.verify_motors_enable():
             self.set_led(self.ui.WBS_status_led, 'green')
@@ -246,6 +250,15 @@ class MainWindow(QMainWindow):
     def update_progress(self, value):
         self.ui.progressBar.setValue(value)
         QApplication.processEvents()
+
+    # Plot related functions
+    def update_axes(self):
+
+        xmin = self.ui.SpectrumSpinXMin.value()
+        xmax = self.ui.SpectrumSpinXMax.value()
+
+        self.spectrum_canvas.ax.set_xlim(xmin, xmax)
+        self.spectrum_canvas.draw_idle()
 
 
 app = QApplication([])

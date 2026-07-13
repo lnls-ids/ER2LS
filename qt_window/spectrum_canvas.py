@@ -9,7 +9,7 @@ class SpectrumCanvas(FigureCanvas):
     def __init__(self):
 
         self.lines = []
-        self.fig = Figure(figsize=(5, 3.5))
+        self.fig = Figure(figsize=(5, 3))
         super().__init__(self.fig)
 
         self.ax = self.fig.add_subplot(111)
@@ -38,7 +38,7 @@ class SpectrumCanvas(FigureCanvas):
         )
 
         self.ax.set_ylabel(
-            "Flux (ph/s/0.1%BW)",
+            "Flux (ph/s/0.1%BW/mrad^2)",
             fontsize=10,
             fontweight='bold'
         )
