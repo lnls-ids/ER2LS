@@ -87,6 +87,8 @@ class MainWindow(QMainWindow):
         # Plot functions
         self.ui.SpectrumSpinXMax.valueChanged.connect(self.update_axes)
         self.ui.SpectrumSpinXMin.valueChanged.connect(self.update_axes)
+        self.ui.verticalSlider.valueChanged.connect(self.observation_changed)
+        self.ui.AngleSpinBox.valueChanged.connect(self.observation_changed_spin)
 
     def initial_verifications(self):
         if self.wbs.verify_motors_enable():
@@ -142,12 +144,15 @@ class MainWindow(QMainWindow):
         harmonic = float(self.ui.Harmonic_edit.text())
         phase = apu.get_phase_from_energy(energy, harmonic)
         if not np.isnan(phase):
+            k = apu.calc_k(phase)
             self.ui.Und_Phase_label.setText(f"Phase: {phase:.4f} mm")
+            self.ui.Und_Klabel.setText(f"K =  {k:.4f}")
             self.apu_widget.set_phase(phase)
         else:
             self.ui.Und_Phase_label.setText("Harmonic not possible!")
         self.canvas.update_point(phase)
-        self.spectrum_canvas.update_spectrum(phase)
+        theta = float(self.ui.AngleSpinBox.value())
+        self.spectrum_canvas.update_spectrum(phase, theta)
 
     def move_und(self):
         phase_str = self.ui.Und_Phase_label.text()
@@ -260,6 +265,24 @@ class MainWindow(QMainWindow):
 
         self.spectrum_canvas.ax.set_xlim(xmin, xmax)
         self.spectrum_canvas.draw_idle()
+
+    def observation_changed(self, value):
+        theta = value
+        self.ui.AngleSpinBox.setValue(theta)
+        self.update_spectrum(theta)
+
+    def observation_changed_spin(self, value):
+        theta = value
+        self.ui.AngleSpinBox.setValue(theta)
+        self.ui.verticalSlider.setValue(theta)
+        self.update_spectrum(theta)
+
+    def update_spectrum(self, theta):
+        phase = float(self.ui.Und_Phase_label.text().split(": ")[1].strip().split()[0])
+        self.spectrum_canvas.update_spectrum(
+            phase,
+            theta,
+        )
 
 
 app = QApplication([])

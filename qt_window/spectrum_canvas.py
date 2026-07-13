@@ -60,9 +60,9 @@ class SpectrumCanvas(FigureCanvas):
 
         self.fig.tight_layout()
 
-    def update_spectrum(self, phase):
+    def update_spectrum(self, phase, theta):
         b = calc_field(phase)
-        energy, flux = calc_flux_density(b, 0)
+        energy, flux = calc_flux_density(b, theta)
         energy *= 1e-3
         # Cria linhas caso ainda não existam
         while len(self.lines) < len(energy):

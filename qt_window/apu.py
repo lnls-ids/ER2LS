@@ -124,6 +124,12 @@ def calc_field(phase):
     return b
 
 
+def calc_k(phase):
+    e1 = poly_any_degree(phase, get_sapucaia_poly_coefficients())
+    k = np.sqrt(4*GAMMA**2*PLANCK*2*PI*LSPEED/(e1*1e3*ECHARGE*PERIOD)-2)
+    return k
+
+
 def get_phase_from_energy(energy_value=12.000, harmonic_number=5, verbose=0):
 
     # find possible harmonics

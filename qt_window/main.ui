@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1236</width>
+    <width>1252</width>
     <height>735</height>
    </rect>
   </property>
@@ -445,7 +445,7 @@ QGroupBox::title {
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>1201</width>
+      <width>1231</width>
       <height>401</height>
      </rect>
     </property>
@@ -727,7 +727,7 @@ QGroupBox::title {
 }</string>
         </property>
         <property name="text">
-         <string>Phase:</string>
+         <string>Phase: 0.000 mm</string>
         </property>
        </widget>
       </item>
@@ -756,7 +756,7 @@ QGroupBox::title {
     <widget class="QWidget" name="SpectrumplotWidget" native="true">
      <property name="geometry">
       <rect>
-       <x>670</x>
+       <x>700</x>
        <y>20</y>
        <width>521</width>
        <height>301</height>
@@ -806,7 +806,7 @@ QGroupBox::title {
       <rect>
        <x>780</x>
        <y>320</y>
-       <width>101</width>
+       <width>131</width>
        <height>31</height>
       </rect>
      </property>
@@ -817,7 +817,7 @@ QGroupBox::title {
 }</string>
      </property>
      <property name="text">
-      <string>Energy range</string>
+      <string>Energy range [KeV]</string>
      </property>
     </widget>
     <widget class="QDoubleSpinBox" name="SpectrumSpinXMin">
@@ -901,13 +901,86 @@ QSlider::sub-page:vertical {
 }</string>
      </property>
      <property name="minimum">
-      <number>-100</number>
+      <number>-200</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>200</number>
      </property>
      <property name="orientation">
       <enum>Qt::Vertical</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Und_Klabel">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>140</y>
+       <width>101</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>K = </string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Und_Anglelabel">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>60</y>
+       <width>131</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>Obs. angle</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="AngleSpinBox">
+     <property name="geometry">
+      <rect>
+       <x>590</x>
+       <y>80</y>
+       <width>47</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>-200</number>
+     </property>
+     <property name="maximum">
+      <number>200</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="Und_Angleradlabel">
+     <property name="geometry">
+      <rect>
+       <x>640</x>
+       <y>80</y>
+       <width>131</width>
+       <height>17</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+     </property>
+     <property name="text">
+      <string>urad</string>
      </property>
     </widget>
    </widget>
@@ -1031,7 +1104,7 @@ QGroupBox::title {
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1236</width>
+     <width>1252</width>
      <height>20</height>
     </rect>
    </property>

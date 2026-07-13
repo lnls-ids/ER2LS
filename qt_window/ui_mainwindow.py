@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1236, 735)
+        MainWindow.resize(1252, 735)
         MainWindow.setStyleSheet("QMainWindow {\n"
 "    background-color: rgb(187, 187, 221);\n"
 "}\n"
@@ -224,7 +224,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_10.addWidget(self.DVF_status_led)
         self.verticalLayout_2.addLayout(self.horizontalLayout_10)
         self.Und_box = QtWidgets.QGroupBox(self.centralwidget)
-        self.Und_box.setGeometry(QtCore.QRect(10, 0, 1201, 401))
+        self.Und_box.setGeometry(QtCore.QRect(10, 0, 1231, 401))
         self.Und_box.setStyleSheet("QGroupBox {\n"
 "\n"
 "    font-weight:bold;\n"
@@ -394,7 +394,7 @@ class Ui_MainWindow(object):
         self.FieldplotWidget.setGeometry(QtCore.QRect(300, 160, 351, 221))
         self.FieldplotWidget.setObjectName("FieldplotWidget")
         self.SpectrumplotWidget = QtWidgets.QWidget(self.Und_box)
-        self.SpectrumplotWidget.setGeometry(QtCore.QRect(670, 20, 521, 301))
+        self.SpectrumplotWidget.setGeometry(QtCore.QRect(700, 20, 521, 301))
         self.SpectrumplotWidget.setObjectName("SpectrumplotWidget")
         self.ERangeLabelMin = QtWidgets.QLabel(self.Und_box)
         self.ERangeLabelMin.setGeometry(QtCore.QRect(780, 350, 81, 31))
@@ -411,7 +411,7 @@ class Ui_MainWindow(object):
 "}")
         self.ERangeLabelMax.setObjectName("ERangeLabelMax")
         self.ERange = QtWidgets.QLabel(self.Und_box)
-        self.ERange.setGeometry(QtCore.QRect(780, 320, 101, 31))
+        self.ERange.setGeometry(QtCore.QRect(780, 320, 131, 31))
         self.ERange.setStyleSheet("QLabel {\n"
 "    color: rgb(30,30,30);\n"
 "    font-size: 10pt;\n"
@@ -458,10 +458,36 @@ class Ui_MainWindow(object):
 "\n"
 "    background: rgb(120,120,120);\n"
 "}")
-        self.verticalSlider.setMinimum(-100)
-        self.verticalSlider.setMaximum(100)
+        self.verticalSlider.setMinimum(-200)
+        self.verticalSlider.setMaximum(200)
         self.verticalSlider.setOrientation(QtCore.Qt.Vertical)
         self.verticalSlider.setObjectName("verticalSlider")
+        self.Und_Klabel = QtWidgets.QLabel(self.Und_box)
+        self.Und_Klabel.setGeometry(QtCore.QRect(300, 140, 101, 17))
+        self.Und_Klabel.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.Und_Klabel.setObjectName("Und_Klabel")
+        self.Und_Anglelabel = QtWidgets.QLabel(self.Und_box)
+        self.Und_Anglelabel.setGeometry(QtCore.QRect(590, 60, 131, 17))
+        self.Und_Anglelabel.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.Und_Anglelabel.setObjectName("Und_Anglelabel")
+        self.AngleSpinBox = QtWidgets.QSpinBox(self.Und_box)
+        self.AngleSpinBox.setGeometry(QtCore.QRect(590, 80, 47, 24))
+        self.AngleSpinBox.setMinimum(-200)
+        self.AngleSpinBox.setMaximum(200)
+        self.AngleSpinBox.setObjectName("AngleSpinBox")
+        self.Und_Angleradlabel = QtWidgets.QLabel(self.Und_box)
+        self.Und_Angleradlabel.setGeometry(QtCore.QRect(640, 80, 131, 17))
+        self.Und_Angleradlabel.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.Und_Angleradlabel.setObjectName("Und_Angleradlabel")
         self.Scan_box = QtWidgets.QGroupBox(self.centralwidget)
         self.Scan_box.setGeometry(QtCore.QRect(380, 400, 301, 291))
         self.Scan_box.setStyleSheet("QGroupBox {\n"
@@ -534,7 +560,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.addWidget(self.progressBar)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1236, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1252, 20))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -581,10 +607,13 @@ class Ui_MainWindow(object):
         self.Energy_edit.setText(_translate("MainWindow", "0"))
         self.harmonic_label.setText(_translate("MainWindow", "Harmonic:"))
         self.Harmonic_edit.setText(_translate("MainWindow", "0"))
-        self.Und_Phase_label.setText(_translate("MainWindow", "Phase:"))
+        self.Und_Phase_label.setText(_translate("MainWindow", "Phase: 0.000 mm"))
         self.ERangeLabelMin.setText(_translate("MainWindow", "Min:"))
         self.ERangeLabelMax.setText(_translate("MainWindow", "Max:"))
-        self.ERange.setText(_translate("MainWindow", "Energy range"))
+        self.ERange.setText(_translate("MainWindow", "Energy range [KeV]"))
+        self.Und_Klabel.setText(_translate("MainWindow", "K = "))
+        self.Und_Anglelabel.setText(_translate("MainWindow", "Obs. angle"))
+        self.Und_Angleradlabel.setText(_translate("MainWindow", "urad"))
         self.Scan_box.setTitle(_translate("MainWindow", "Scan"))
         self.Inputfile_label.setText(_translate("MainWindow", "Input File:"))
         self.FileButton.setText(_translate("MainWindow", "Browse"))
