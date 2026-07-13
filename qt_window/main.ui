@@ -756,8 +756,8 @@ QGroupBox::title {
     <widget class="QWidget" name="SpectrumplotWidget" native="true">
      <property name="geometry">
       <rect>
-       <x>660</x>
-       <y>30</y>
+       <x>670</x>
+       <y>20</y>
        <width>521</width>
        <height>301</height>
       </rect>
@@ -766,7 +766,7 @@ QGroupBox::title {
     <widget class="QLabel" name="ERangeLabelMin">
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>780</x>
        <y>350</y>
        <width>81</width>
        <height>31</height>
@@ -785,7 +785,7 @@ QGroupBox::title {
     <widget class="QLabel" name="ERangeLabelMax">
      <property name="geometry">
       <rect>
-       <x>870</x>
+       <x>940</x>
        <y>350</y>
        <width>81</width>
        <height>31</height>
@@ -804,7 +804,7 @@ QGroupBox::title {
     <widget class="QLabel" name="ERange">
      <property name="geometry">
       <rect>
-       <x>710</x>
+       <x>780</x>
        <y>320</y>
        <width>101</width>
        <height>31</height>
@@ -823,7 +823,7 @@ QGroupBox::title {
     <widget class="QDoubleSpinBox" name="SpectrumSpinXMin">
      <property name="geometry">
       <rect>
-       <x>740</x>
+       <x>810</x>
        <y>350</y>
        <width>71</width>
        <height>31</height>
@@ -842,7 +842,7 @@ QGroupBox::title {
     <widget class="QDoubleSpinBox" name="SpectrumSpinXMax">
      <property name="geometry">
       <rect>
-       <x>910</x>
+       <x>980</x>
        <y>350</y>
        <width>71</width>
        <height>31</height>
@@ -862,6 +862,52 @@ QGroupBox::title {
      </property>
      <property name="value">
       <double>20.000000000000000</double>
+     </property>
+    </widget>
+    <widget class="QSlider" name="verticalSlider">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>20</y>
+       <width>31</width>
+       <height>141</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QSlider::handle:vertical {
+
+    border-image: url(:/icons/eye.png);
+
+    width:32px;
+    height:32px;
+
+    margin:-12px -14px;
+
+    background:transparent;
+    border:none;
+}
+QSlider::groove:vertical {
+
+    background: rgb(120,120,120);
+
+    width: 4px;
+
+    border-radius: 2px;
+}
+
+QSlider::sub-page:vertical {
+
+    background: rgb(120,120,120);
+}</string>
+     </property>
+     <property name="minimum">
+      <number>-100</number>
+     </property>
+     <property name="maximum">
+      <number>100</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
      </property>
     </widget>
    </widget>

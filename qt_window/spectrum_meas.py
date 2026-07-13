@@ -15,6 +15,7 @@ import numpy as np
 from PyQt5.QtWidgets import QVBoxLayout
 from mpl_canvas import MplCanvas
 from spectrum_canvas import SpectrumCanvas
+import resources_rc  # noqa: F401
 
 
 class MainWindow(QMainWindow):
@@ -22,7 +23,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
 
         super().__init__()
-        os.environ['EPICS_CA_ADDR_LIST'] = '10.33.34.32 10.33.34.29 10.39.50.76 10.0.38.143'
+        os.environ['EPICS_CA_ADDR_LIST'] = '10.33.34.32 10.33.34.29 10.39.50.76 10.0.38.143 10.128.249.20'
 
         self.und = None
         self.dcm = None

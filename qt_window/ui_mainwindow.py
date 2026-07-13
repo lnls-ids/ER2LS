@@ -394,43 +394,74 @@ class Ui_MainWindow(object):
         self.FieldplotWidget.setGeometry(QtCore.QRect(300, 160, 351, 221))
         self.FieldplotWidget.setObjectName("FieldplotWidget")
         self.SpectrumplotWidget = QtWidgets.QWidget(self.Und_box)
-        self.SpectrumplotWidget.setGeometry(QtCore.QRect(660, 30, 521, 301))
+        self.SpectrumplotWidget.setGeometry(QtCore.QRect(670, 20, 521, 301))
         self.SpectrumplotWidget.setObjectName("SpectrumplotWidget")
         self.ERangeLabelMin = QtWidgets.QLabel(self.Und_box)
-        self.ERangeLabelMin.setGeometry(QtCore.QRect(710, 350, 81, 31))
+        self.ERangeLabelMin.setGeometry(QtCore.QRect(780, 350, 81, 31))
         self.ERangeLabelMin.setStyleSheet("QLabel {\n"
 "    color: rgb(30,30,30);\n"
 "    font-size: 10pt;\n"
 "}")
         self.ERangeLabelMin.setObjectName("ERangeLabelMin")
         self.ERangeLabelMax = QtWidgets.QLabel(self.Und_box)
-        self.ERangeLabelMax.setGeometry(QtCore.QRect(870, 350, 81, 31))
+        self.ERangeLabelMax.setGeometry(QtCore.QRect(940, 350, 81, 31))
         self.ERangeLabelMax.setStyleSheet("QLabel {\n"
 "    color: rgb(30,30,30);\n"
 "    font-size: 10pt;\n"
 "}")
         self.ERangeLabelMax.setObjectName("ERangeLabelMax")
         self.ERange = QtWidgets.QLabel(self.Und_box)
-        self.ERange.setGeometry(QtCore.QRect(710, 320, 101, 31))
+        self.ERange.setGeometry(QtCore.QRect(780, 320, 101, 31))
         self.ERange.setStyleSheet("QLabel {\n"
 "    color: rgb(30,30,30);\n"
 "    font-size: 10pt;\n"
 "}")
         self.ERange.setObjectName("ERange")
         self.SpectrumSpinXMin = QtWidgets.QDoubleSpinBox(self.Und_box)
-        self.SpectrumSpinXMin.setGeometry(QtCore.QRect(740, 350, 71, 31))
+        self.SpectrumSpinXMin.setGeometry(QtCore.QRect(810, 350, 71, 31))
         self.SpectrumSpinXMin.setDecimals(1)
         self.SpectrumSpinXMin.setMaximum(20.0)
         self.SpectrumSpinXMin.setSingleStep(0.1)
         self.SpectrumSpinXMin.setObjectName("SpectrumSpinXMin")
         self.SpectrumSpinXMax = QtWidgets.QDoubleSpinBox(self.Und_box)
-        self.SpectrumSpinXMax.setGeometry(QtCore.QRect(910, 350, 71, 31))
+        self.SpectrumSpinXMax.setGeometry(QtCore.QRect(980, 350, 71, 31))
         self.SpectrumSpinXMax.setDecimals(1)
         self.SpectrumSpinXMax.setMinimum(1.0)
         self.SpectrumSpinXMax.setMaximum(20.0)
         self.SpectrumSpinXMax.setSingleStep(0.1)
         self.SpectrumSpinXMax.setProperty("value", 20.0)
         self.SpectrumSpinXMax.setObjectName("SpectrumSpinXMax")
+        self.verticalSlider = QtWidgets.QSlider(self.Und_box)
+        self.verticalSlider.setGeometry(QtCore.QRect(560, 20, 31, 141))
+        self.verticalSlider.setStyleSheet("QSlider::handle:vertical {\n"
+"\n"
+"    border-image: url(:/icons/eye.png);\n"
+"\n"
+"    width:32px;\n"
+"    height:32px;\n"
+"\n"
+"    margin:-12px -14px;\n"
+"\n"
+"    background:transparent;\n"
+"    border:none;\n"
+"}\n"
+"QSlider::groove:vertical {\n"
+"\n"
+"    background: rgb(120,120,120);\n"
+"\n"
+"    width: 4px;\n"
+"\n"
+"    border-radius: 2px;\n"
+"}\n"
+"\n"
+"QSlider::sub-page:vertical {\n"
+"\n"
+"    background: rgb(120,120,120);\n"
+"}")
+        self.verticalSlider.setMinimum(-100)
+        self.verticalSlider.setMaximum(100)
+        self.verticalSlider.setOrientation(QtCore.Qt.Vertical)
+        self.verticalSlider.setObjectName("verticalSlider")
         self.Scan_box = QtWidgets.QGroupBox(self.centralwidget)
         self.Scan_box.setGeometry(QtCore.QRect(380, 400, 301, 291))
         self.Scan_box.setStyleSheet("QGroupBox {\n"
