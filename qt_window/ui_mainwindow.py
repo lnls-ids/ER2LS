@@ -477,12 +477,12 @@ class Ui_MainWindow(object):
 "}")
         self.Und_Anglelabel.setObjectName("Und_Anglelabel")
         self.AngleSpinBox = QtWidgets.QSpinBox(self.Und_box)
-        self.AngleSpinBox.setGeometry(QtCore.QRect(590, 80, 47, 24))
+        self.AngleSpinBox.setGeometry(QtCore.QRect(590, 80, 61, 24))
         self.AngleSpinBox.setMinimum(-200)
         self.AngleSpinBox.setMaximum(200)
         self.AngleSpinBox.setObjectName("AngleSpinBox")
         self.Und_Angleradlabel = QtWidgets.QLabel(self.Und_box)
-        self.Und_Angleradlabel.setGeometry(QtCore.QRect(640, 80, 131, 17))
+        self.Und_Angleradlabel.setGeometry(QtCore.QRect(660, 80, 131, 17))
         self.Und_Angleradlabel.setStyleSheet("QLabel {\n"
 "    color: rgb(30,30,30);\n"
 "    font-size: 10pt;\n"
@@ -541,6 +541,20 @@ class Ui_MainWindow(object):
 "}")
         self.Scan_nrpoints.setObjectName("Scan_nrpoints")
         self.verticalLayout_5.addWidget(self.Scan_nrpoints)
+        self.Scan_min_energy = QtWidgets.QLabel(self.verticalLayoutWidget_5)
+        self.Scan_min_energy.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.Scan_min_energy.setObjectName("Scan_min_energy")
+        self.verticalLayout_5.addWidget(self.Scan_min_energy)
+        self.Scan_max_energy = QtWidgets.QLabel(self.verticalLayoutWidget_5)
+        self.Scan_max_energy.setStyleSheet("QLabel {\n"
+"    color: rgb(30,30,30);\n"
+"    font-size: 10pt;\n"
+"}")
+        self.Scan_max_energy.setObjectName("Scan_max_energy")
+        self.verticalLayout_5.addWidget(self.Scan_max_energy)
         self.Scan_Button = QtWidgets.QPushButton(self.verticalLayoutWidget_5)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
@@ -618,4 +632,6 @@ class Ui_MainWindow(object):
         self.Inputfile_label.setText(_translate("MainWindow", "Input File:"))
         self.FileButton.setText(_translate("MainWindow", "Browse"))
         self.Scan_nrpoints.setText(_translate("MainWindow", "Nr. points:"))
+        self.Scan_min_energy.setText(_translate("MainWindow", "Min. Energy:"))
+        self.Scan_max_energy.setText(_translate("MainWindow", "Max. Energy:"))
         self.Scan_Button.setText(_translate("MainWindow", "Start Scan"))

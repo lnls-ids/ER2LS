@@ -246,7 +246,11 @@ class MainWindow(QMainWindow):
             self.scan = Scan(fname=filename, dcm=self.dcm, dvf=self.dvf)
             self.scan.load_scan_points()
             nr_pts = len(self.scan.scanPoints[:, 0])
+            min_energy = self.scan.scanPoints[0, 0]
+            max_energy = self.scan.scanPoints[-1, 0]
             self.ui.Scan_nrpoints.setText("Nr. points: {:.0f}".format(nr_pts))
+            self.ui.Scan_min_energy.setText("Min. energy: {:.1f} KeV".format(min_energy))
+            self.ui.Scan_max_energy.setText("Max. energy: {:.1f} KeV".format(max_energy))
 
     def start_scan(self):
         self.scan.do_scan(
