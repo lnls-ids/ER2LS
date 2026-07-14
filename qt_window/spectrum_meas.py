@@ -15,6 +15,8 @@ import numpy as np
 from PyQt5.QtWidgets import QVBoxLayout
 from mpl_canvas import MplCanvas
 from spectrum_canvas import SpectrumCanvas
+import plots
+from functools import partial
 import resources_rc  # noqa: F401
 
 
@@ -89,6 +91,50 @@ class MainWindow(QMainWindow):
         self.ui.SpectrumSpinXMin.valueChanged.connect(self.update_axes)
         self.ui.verticalSlider.valueChanged.connect(self.observation_changed)
         self.ui.AngleSpinBox.valueChanged.connect(self.observation_changed_spin)
+
+        # Plot results functions
+        self.ui.PlotFileButton_1.clicked.connect(partial(
+            self.select_input_file_plot,
+            self.ui.PlotInputFile_lineEdit_1,
+            self.ui.PlotFileStatus_1,
+        )
+        )
+        self.ui.PlotFileButton_2.clicked.connect(partial(
+            self.select_input_file_plot,
+            self.ui.PlotInputFile_lineEdit_2,
+            self.ui.PlotFileStatus_2,
+        )
+        )
+
+        self.ui.PlotFileButtonGif_1.clicked.connect(partial(
+            self.plot_gif,
+            self.ui.PlotInputFile_lineEdit_1,
+            self.ui.PlotFileStatus_1,
+        ))
+
+        self.ui.PlotFileButtonGif_2.clicked.connect(partial(
+            self.plot_gif,
+            self.ui.PlotInputFile_lineEdit_2,
+            self.ui.PlotFileStatus_2,
+        ))
+
+        self.ui.PlotFileButtonFlux_1.clicked.connect(partial(
+            self.plot_flux,
+            self.ui.PlotInputFile_lineEdit_1,
+            self.ui.PlotFileStatus_1,
+
+        ))
+
+        self.ui.PlotFileButtonFlux_2.clicked.connect(partial(
+            self.plot_flux,
+            self.ui.PlotInputFile_lineEdit_2,
+            self.ui.PlotFileStatus_2,
+
+        ))
+
+        self.ui.PlotFileButtonBoth.clicked.connect(
+            self.plot_flux_both
+        )
 
     def initial_verifications(self):
         if self.wbs.verify_motors_enable():
@@ -287,6 +333,47 @@ class MainWindow(QMainWindow):
             phase,
             theta,
         )
+
+    # PLot results related functions
+    def select_input_file_plot(self, line_edit, label):
+        filename, _ = QFileDialog.getOpenFileName(
+            self,
+            "Select input file",
+            "",
+            "HDF5 (*.h5)"
+        )
+
+        if filename:
+            *_, max_intensity = plots.read_data(filename)
+            line_edit.setText(filename)
+            label.setText('File OK. max. intensity = {:0d}/1024'.format(max_intensity))
+
+    def plot_gif(self, line_edit, label):
+        if label.text().split('.')[0] == 'File OK':
+            fname = line_edit.text()
+            self.player = plots.SpectrumPlayer(fname)
+            self.player.show()
+            self.player.start()
+        else:
+            label.setText('Select a valid file first!')
+
+    def plot_flux(self, line_edit, label):
+        if label.text().split('.')[0] == 'File OK':
+            fname = line_edit.text()
+            plots.plot_one_flux(fname)
+        else:
+            label.setText('Select a valid file first!')
+
+    def plot_flux_both(self):
+        label1 = self.ui.PlotFileStatus_1.text().split('.')[0]
+        label2 = self.ui.PlotFileStatus_2.text().split('.')[0]
+        if label1 == 'File OK' and label2 == 'File OK':
+            fname1 = self.ui.PlotInputFile_lineEdit_1.text()
+            fname2 = self.ui.PlotInputFile_lineEdit_2.text()
+            plots.plot_flux_both(fname1, fname2)
+        else:
+            self.ui.PlotFileStatus_1.setText('Select valid files first!')
+            self.ui.PlotFileStatus_2.setText('Select valid files first!')
 
 
 app = QApplication([])
