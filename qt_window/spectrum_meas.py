@@ -17,6 +17,7 @@ from mpl_canvas import MplCanvas
 from spectrum_canvas import SpectrumCanvas
 import plots
 from functools import partial
+from PyQt5.QtCore import QTimer
 import resources_rc  # noqa: F401
 
 
@@ -53,9 +54,13 @@ class MainWindow(QMainWindow):
         self.apu_widget = APUWidget(self.ui.graphicsViewAPU)
 
         self.connect_undulator()
-        self.connect_dcm()
+        # self.connect_dcm()
 
         self.initial_verifications()
+
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_status_dcm)
+        self.timer.start(500)
 
         # Undulator functions
         self.ui.Und_Connect_Button.clicked.connect(self.connect_undulator)
@@ -218,6 +223,11 @@ class MainWindow(QMainWindow):
         energy = float(self.ui.Energy_edit.text())
         self.dcm.cmd_move_robust(energy, 5)
 
+    def update_status_dcm(self):
+        if self.dcm is not None:
+            energy = self.dcm.energy_mon
+            self.ui.DCM_Energy_mon_label.setText('DCM energy: {:.3f} KeV'.format(energy))
+
     # Slits related functions
     def close_wbs(self):
         self.wbs.set_slits_closed()
@@ -299,7 +309,13 @@ class MainWindow(QMainWindow):
             self.ui.Scan_max_energy.setText("Max. energy: {:.1f} KeV".format(max_energy))
 
     def start_scan(self):
+        text = self.ui.OutputFile_lineEdit.text()
+        if text == 'Filename':
+            fname = ''
+        else:
+            fname = text
         self.scan.do_scan(
+            fname,
             progress_callback=self.update_progress
         )
 

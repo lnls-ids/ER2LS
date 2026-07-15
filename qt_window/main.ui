@@ -479,9 +479,9 @@ QGroupBox::title {
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>110</y>
+       <y>140</y>
        <width>141</width>
-       <height>281</height>
+       <height>251</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -575,9 +575,9 @@ QGroupBox::title {
      <property name="geometry">
       <rect>
        <x>160</x>
-       <y>110</y>
+       <y>140</y>
        <width>121</width>
-       <height>191</height>
+       <height>171</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -659,8 +659,8 @@ QGroupBox::title {
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>271</width>
-       <height>81</height>
+       <width>281</width>
+       <height>104</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -728,6 +728,19 @@ QGroupBox::title {
         </property>
         <property name="text">
          <string>Phase: 0.000 mm</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="DCM_Energy_mon_label">
+        <property name="styleSheet">
+         <string notr="true">QLabel {
+    color: rgb(30,30,30);
+    font-size: 10pt;
+}</string>
+        </property>
+        <property name="text">
+         <string>DCM energy: 0 KeV</string>
         </property>
        </widget>
       </item>
@@ -1092,6 +1105,13 @@ QGroupBox::title {
         </property>
         <property name="text">
          <string>Max. Energy:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="OutputFile_lineEdit">
+        <property name="text">
+         <string>Filename</string>
         </property>
        </widget>
       </item>
