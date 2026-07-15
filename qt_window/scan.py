@@ -13,7 +13,7 @@ class Scan():
     def load_scan_points(self):
         self.scanPoints = np.genfromtxt(self.fname)
 
-    def do_scan(self, fname, progress_callback=None):
+    def do_scan(self, fname, progress_callback=None, abort_callback=None):
         folder = './'
         if fname == '':
             fname_prefix = 'SPU_'
@@ -54,7 +54,11 @@ class Scan():
             if progress_callback is not None:
                 progress = int((i + 1) / ne * 100)
                 progress_callback(progress)
+            if abort_callback is not None and abort_callback():
+                print("Scan aborted.")
+                return
 
+            time.sleep(0.25)
         hdf.end_hdf5()
 
         t1 = time.time()

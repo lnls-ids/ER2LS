@@ -18,6 +18,8 @@ from spectrum_canvas import SpectrumCanvas
 import plots
 from functools import partial
 from PyQt5.QtCore import QTimer
+from PyQt5.QtCore import QThread
+from worker import ScanWorker
 import resources_rc  # noqa: F401
 
 
@@ -54,7 +56,7 @@ class MainWindow(QMainWindow):
         self.apu_widget = APUWidget(self.ui.graphicsViewAPU)
 
         self.connect_undulator()
-        # self.connect_dcm()
+        self.connect_dcm()
 
         self.initial_verifications()
 
@@ -90,6 +92,7 @@ class MainWindow(QMainWindow):
         # Scan functions
         self.ui.FileButton.clicked.connect(self.select_input_file)
         self.ui.Scan_Button.clicked.connect(self.start_scan)
+        self.ui.AbortScanButton.clicked.connect(self.abort_scan)
 
         # Plot functions
         self.ui.SpectrumSpinXMax.valueChanged.connect(self.update_axes)
@@ -308,20 +311,51 @@ class MainWindow(QMainWindow):
             self.ui.Scan_min_energy.setText("Min. energy: {:.1f} KeV".format(min_energy))
             self.ui.Scan_max_energy.setText("Max. energy: {:.1f} KeV".format(max_energy))
 
+    # def start_scan(self):
+    #     text = self.ui.OutputFile_lineEdit.text()
+    #     if text == 'Filename':
+    #         fname = ''
+    #     else:
+    #         fname = text
+    #     self.scan.do_scan(
+    #         fname,
+    #         progress_callback=self.update_progress
+    #     )
     def start_scan(self):
         text = self.ui.OutputFile_lineEdit.text()
-        if text == 'Filename':
-            fname = ''
-        else:
-            fname = text
-        self.scan.do_scan(
-            fname,
-            progress_callback=self.update_progress
+        fname = "" if text == "Filename" else text
+        self.ui.Scan_Button.setEnabled(False)
+        self.ui.AbortScanButton.setEnabled(True)
+
+        self.thread = QThread()
+        self.worker = ScanWorker(
+            self.scan,
+            fname
         )
+
+        self.worker.moveToThread(self.thread)
+        self.thread.started.connect(self.worker.run)
+        self.worker.progress.connect(self.update_progress)
+        self.worker.finished.connect(self.scan_finished)
+        self.worker.finished.connect(self.thread.quit)
+        self.worker.finished.connect(self.worker.deleteLater)
+        self.thread.finished.connect(self.thread.deleteLater)
+        self.thread.start()
 
     def update_progress(self, value):
         self.ui.progressBar.setValue(value)
-        QApplication.processEvents()
+        # QApplication.processEvents()
+
+    def scan_finished(self):
+        self.ui.Scan_Button.setEnabled(True)
+        self.ui.AbortScanButton.setEnabled(False)
+
+        self.ui.progressBar.setValue(100)
+        print("Scan finished.")
+
+    def abort_scan(self):
+        if hasattr(self, "worker"):
+            self.worker.abort()
 
     # Plot related functions
     def update_axes(self):
