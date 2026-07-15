@@ -136,6 +136,7 @@ class DVF():
 
         epics.caput(self.pv_prefix +'ROI1:EnableCallbacks', 1, wait=True)
         epics.caput(self.pv_prefix + 'image1:NDArrayPort', 'CAM', wait=True)
+        self.shape = (self.ny, self.nx)
 
     def get_centroid(self, img, x=0, y=0):
 
