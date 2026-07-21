@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 import epics
-from scipy.optimize import minimize_scalar
 
 
 class DCM():
@@ -43,7 +42,6 @@ class DCM():
             energy (1d numpy array): KeV
             timeout (_type_, optional): _description_. Defaults to None.
         """
-
         epics.caput(self.dcm_energy_sp, energy)
         return epics.caput(self.dcm_energy_update, 1)
 
@@ -63,11 +61,11 @@ class DCM():
             timeout = self.timeout
 
         sucess = self.set_energy(energy)
-        time.sleep(0.5)
+        time.sleep(0.2)
         if sucess:
             while self.is_moving:
                 print('DMC is moving...', end='\r')
-                time.sleep(0.2)
+                time.sleep(0.1)
             return True
         else:
             print('cmd move failed!')

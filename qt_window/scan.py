@@ -34,7 +34,7 @@ class Scan():
 
             self.dcm.cmd_move_robust(self.scanPoints[i][0], timeout=5)
             self.dvf.set_exposure_time(self.scanPoints[i][2])
-            time.sleep(0.5)
+            time.sleep(0.1)
 
             energy_mon = self.dcm.energy_mon
             # energy_mon = self.scanPoints[i][0]
@@ -58,7 +58,7 @@ class Scan():
                 print("Scan aborted.")
                 return
 
-            time.sleep(0.25)
+            time.sleep(0.1)
         hdf.end_hdf5()
 
         t1 = time.time()
