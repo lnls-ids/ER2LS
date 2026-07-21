@@ -73,7 +73,7 @@ class SpectrumPlayer(QMainWindow):
     def __init__(self, fname):
         super().__init__()
 
-        self.energy, self.flux, self.images, _ = read_data(fname)
+        self.energy, self.flux, self.images, max_intensity = read_data(fname)
 
         self.setWindowTitle("Spectrum Animation")
 
@@ -112,7 +112,7 @@ class SpectrumPlayer(QMainWindow):
             cmap="viridis",
             origin="lower",
             vmin=0,
-            vmax=999
+            vmax=max_intensity
         )
 
         self.ax2.set_title("Image")
