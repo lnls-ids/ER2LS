@@ -80,13 +80,13 @@ class WBS1():
         value = not epics.caget(self.pv_right_motor)
         epics.caput(self.pv_right_motor, value)
 
-    def set_slits_open(self):
-        self.set_top_pos(-1.04)
-        self.set_bottom_pos(0.58)
-        self.set_left_pos(3.30)
-        self.set_right_pos(0.12)
-
     def set_slits_ref(self):
+        self.set_top_pos(-1.135)
+        self.set_bottom_pos(0.385)
+        self.set_left_pos(2.973)
+        self.set_right_pos(-0.237)
+
+    def set_slits_open(self):
         self.set_top_pos(-0.79)
         self.set_bottom_pos(0.88)
         self.set_left_pos(3.5)
@@ -194,10 +194,10 @@ class FOES():
         epics.caput(self.pv_right_motor, value)
 
     def set_slits_open(self):
-        self.set_top_pos(0.7469 + 2.0)
-        self.set_bottom_pos(0.3869 + 2.0)
-        self.set_left_pos(0.1956 + 2.0)
-        self.set_right_pos(0.8446 + 2.0)
+        self.set_top_pos(0.7477)
+        self.set_bottom_pos(0.3879)
+        self.set_left_pos(0.1893)
+        self.set_right_pos(0.8446)
 
     def set_slits_ref(self):
         self.set_top_pos(0.7477)
