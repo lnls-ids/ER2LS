@@ -55,6 +55,10 @@ def plot_one_flux(fname):
 def plot_flux_both(fname1, fname2):
     energy1, flux1, images1, _ = read_data(fname1)
     energy2, flux2, images2, _ = read_data(fname2)
+    flux1 -= flux1[0]
+    flux2 -= flux2[0]
+    flux1 /= np.max(flux1)
+    flux2 /= np.max(flux2)
     fig, ax = plt.subplots(figsize=(4.5, 3.0))
     ax.plot(energy1, flux1, '-', label='Open Slits')
     ax.plot(energy2, flux2, '-', label='Closed Slits')
